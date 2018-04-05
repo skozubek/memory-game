@@ -1,5 +1,7 @@
 # Memory Game Project
 
+Well known memory game implemented with HTML, CSS & JS.
+
 ## Table of Contents
 
 * [Instructions](#instructions)
@@ -7,14 +9,10 @@
 
 ## Instructions
 
-The starter project has some HTML and CSS styling to display a static version of the Memory Game project. You'll need to convert this project from a static project to an interactive one. This will require modifying the HTML and CSS files, but primarily the JavaScript file.
-
-To get started, open `js/app.js` and start building out the app's functionality
-
-For specific, detailed instructions, look at the project instructions in the [Udacity Classroom](https://classroom.udacity.com/me).
+Click card to flip it. Find a matching one and you've got a pair! Find all of 8 pairs in the shortest time to win the game.
 
 ## Contributing
 
-This repository is the starter code for _all_ Udacity students. Therefore, we most likely will not accept pull requests.
+This repository is Udacity FEND project. Therefore, I will not accept pull requests.
 
 For details, check out [CONTRIBUTING.md](CONTRIBUTING.md).
