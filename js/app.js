@@ -60,61 +60,78 @@ function shuffle(array) {
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
  let openCardsList = [];
- let matchedCardsList = [];
  let matchedCounter = 0;
 
  function resetOpenCardsList(){
    openCardsList = [];
  }
 
- function showSymbol(e){
-   e.target.classList.add('show');
+ function toggleSymbol(card){
+   card.classList.toggle('show');
   }
+
+  function flipCard(card){
+    card.classList.toggle('open');
+   }
 
  function addToOpenCardsList(card){
     openCardsList.push(card);
  }
 
  function cardsMatch(card1, card2){
+   console.log(card1.querySelector('i').className === card2.querySelector('i').className);
    return card1.querySelector('i').className === card2.querySelector('i').className;
  }
 
  function setMatchedCards(card1, card2){
   card1.classList.add('match');
   card2.classList.add('match');
+  openCardsList[0].classList.toggle('show');
+  openCardsList[1].classList.toggle('show');
  }
 
  function openCard(card){
 
+    card.classList.add('open');
+
+    //if no cards opened open card and add to the list of open cards
      if(openCardsList.length === 0){
-       card.classList.add('open');
-       showSymbol(e);
+       toggleSymbol(card);
        addToOpenCardsList(card);
      }
-
+     //if one card already opened - open card and add to the list of open cards
+     //then check if the card match
      else if (openCardsList.length === 1) {
-       card.classList.add('open');
-       showSymbol(e);
+       toggleSymbol(card);
        addToOpenCardsList(card);
 
-       if (cardsMatch(firstCard, secondCard)){
-         console.log('match!');
-         setMatchedCards(firstCard, secondCard);
+       //if cards match - mark them
+       if (cardsMatch(openCardsList[0], openCardsList[1])){
+         setMatchedCards(openCardsList[0], openCardsList[1]);
        }
-
-     } else if (openCardsList.length === 2){
-       openCardsList[0].classList.toggle('show');
-       openCardsList[0].classList.toggle('open');
-       openCardsList[1].classList.toggle('show');
-       openCardsList[1].classList.toggle('open');
-       //clear openCards
-       resetOpenCardsList();
-       card.classList.add('open');
-       showSymbol(e);
-       addToOpenCardsList(card);
      }
-   }
 
+     //if two cards opened and not matched - hide opened cards and reset open cards list
+     else if (openCardsList.length === 2) {
+       if(!cardsMatch(openCardsList[0], openCardsList[1])){
+         toggleSymbol(openCardsList[0]);
+         toggleSymbol(openCardsList[1]);
+         flipCard(openCardsList[0]);
+         flipCard(openCardsList[1]);
+
+         resetOpenCardsList();
+
+         //if two cards opened and matched - leave them visible and reset open cards list
+       } else {
+         resetOpenCardsList();
+
+       }
+       //open clicked card and add to open cards list
+       toggleSymbol(card);
+       addToOpenCardsList(card);
+
+     }
+ }
 
  //function checking if the card is opened
  function isCardOpened(e){
