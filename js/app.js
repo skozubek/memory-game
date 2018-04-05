@@ -61,14 +61,10 @@ function shuffle(array) {
  */
  let openCardsList = [];
  let matchedCardsList = [];
- let firstCard;
- let secondCard;
- let matchedCounter
+ let matchedCounter = 0;
 
  function resetOpenCardsList(){
    openCardsList = [];
-   firstCard = null;
-   secondCard = null;
  }
 
  function showSymbol(e){
@@ -88,9 +84,7 @@ function shuffle(array) {
   card2.classList.add('match');
  }
 
- function openCard(e){
-
-     let card = e.target;
+ function openCard(card){
 
      if(openCardsList.length === 0){
        card.classList.add('open');
@@ -102,8 +96,6 @@ function shuffle(array) {
        card.classList.add('open');
        showSymbol(e);
        addToOpenCardsList(card);
-       firstCard = openCardsList[0];
-       secondCard = openCardsList[1];
 
        if (cardsMatch(firstCard, secondCard)){
          console.log('match!');
@@ -111,10 +103,10 @@ function shuffle(array) {
        }
 
      } else if (openCardsList.length === 2){
-       firstCard.classList.toggle('show');
-       firstCard.classList.toggle('open');
-       secondCard.classList.toggle('show');
-       secondCard.classList.toggle('open');
+       openCardsList[0].classList.toggle('show');
+       openCardsList[0].classList.toggle('open');
+       openCardsList[1].classList.toggle('show');
+       openCardsList[1].classList.toggle('open');
        //clear openCards
        resetOpenCardsList();
        card.classList.add('open');
@@ -141,7 +133,7 @@ function shuffle(array) {
  function cardClicked(e){
    if (e.target.className === 'card'){
      if (!isCardOpened(e) && !isCardMatched(e)){
-       openCard(e);
+       openCard(e.target);
      }
    }
  }
