@@ -63,8 +63,8 @@ function shuffle(array) {
  let matchedCardsList = [];
  let firstCard;
  let secondCard;
+ let matchedCounter
 
- //fuction addToOpenCardsList
  function resetOpenCardsList(){
    openCardsList = [];
    firstCard = null;
@@ -79,9 +79,17 @@ function shuffle(array) {
     openCardsList.push(card);
  }
 
+ function cardsMatch(card1, card2){
+   return card1.querySelector('i').className === card2.querySelector('i').className;
+ }
+
+ function setMatchedCards(card1, card2){
+  card1.classList.add('match');
+  card2.classList.add('match');
+ }
+
  function openCard(e){
 
-   if (e.target.className === 'card'){
      let card = e.target;
 
      if(openCardsList.length === 0){
@@ -89,14 +97,20 @@ function shuffle(array) {
        showSymbol(e);
        addToOpenCardsList(card);
      }
+
      else if (openCardsList.length === 1) {
        card.classList.add('open');
        showSymbol(e);
        addToOpenCardsList(card);
-     } else if (openCardsList.length === 2){
-       let firstCard = openCardsList[0];
-       let secondCard = openCardsList[1];
+       firstCard = openCardsList[0];
+       secondCard = openCardsList[1];
 
+       if (cardsMatch(firstCard, secondCard)){
+         console.log('match!');
+         setMatchedCards(firstCard, secondCard);
+       }
+
+     } else if (openCardsList.length === 2){
        firstCard.classList.toggle('show');
        firstCard.classList.toggle('open');
        secondCard.classList.toggle('show');
@@ -108,7 +122,7 @@ function shuffle(array) {
        addToOpenCardsList(card);
      }
    }
- }
+
 
  //function checking if the card is opened
  function isCardOpened(e){
@@ -125,11 +139,14 @@ function shuffle(array) {
  }
 
  function cardClicked(e){
-   if (!isCardOpened(e) && !isCardMatched(e)){
-     openCard(e);
+   if (e.target.className === 'card'){
+     if (!isCardOpened(e) && !isCardMatched(e)){
+       openCard(e);
+     }
    }
  }
 
+ //add event listener to the cards deck
  const deck = document.querySelector('.deck');
 
  deck.addEventListener('click', function(event) {
