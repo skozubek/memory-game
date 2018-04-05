@@ -25,8 +25,7 @@ function initGameCards() {
     gameCard.removeChild(gameCard.firstChild);
     }
     // show the cards
-    //gameCard.classList.add('open', 'show');
-    // Adding new card face
+    // Adding card face
     let newFace = document.createElement('i');
     newFace.classList.add('fa',  gameCardsFaces[i]);
     gameCard.appendChild(newFace);
@@ -48,7 +47,6 @@ function shuffle(array) {
     return array;
 }
 
-
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
@@ -61,6 +59,10 @@ function shuffle(array) {
  */
  let openCardsList = [];
  let matchedCounter = 0;
+
+ function gameOver(){
+   return matchedCounter === 8;
+ }
 
  function resetOpenCardsList(){
    openCardsList = [];
@@ -79,7 +81,6 @@ function shuffle(array) {
  }
 
  function cardsMatch(card1, card2){
-   console.log(card1.querySelector('i').className === card2.querySelector('i').className);
    return card1.querySelector('i').className === card2.querySelector('i').className;
  }
 
@@ -108,6 +109,14 @@ function shuffle(array) {
        //if cards match - mark them
        if (cardsMatch(openCardsList[0], openCardsList[1])){
          setMatchedCards(openCardsList[0], openCardsList[1]);
+
+         matchedCounter++;
+
+         if(gameOver()){
+           setTimeout(function congrats() {
+            alert('You made it!');
+          }, 0);  // ← 0 milliseconds!alert('You made it!');
+         }
        }
      }
 
@@ -149,7 +158,8 @@ function shuffle(array) {
 
  function cardClicked(e){
    if (e.target.className === 'card'){
-     if (!isCardOpened(e) && !isCardMatched(e)){
+     //open card if not already opened
+     if (!isCardOpened(e)){
        openCard(e.target);
      }
    }
