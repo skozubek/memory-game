@@ -13,23 +13,23 @@ let gameCardsFaces = ['fa-beer', 'fa-paper-plane', 'fa-anchor', 'fa-bolt', 'fa-c
  *   - add each card's HTML to the page
  */
 
-function displayGameCards() {
+function initGameCards() {
   gameCardsFaces = shuffle(gameCardsFaces);
   const gameCardElements = document.querySelectorAll('.card'); //get all card elements
 
 //loop through all the cards and set the face
   for(let i = 0; i < gameCardElements.length; i++){
-    // Removing all children from an element
+    // Removing all children from an card element
     let gameCard = gameCardElements[i];
     while (gameCard.firstChild) {
     gameCard.removeChild(gameCard.firstChild);
     }
     // show the cards
-    gameCard.classList.add('open', 'show');
+    //gameCard.classList.add('open', 'show');
     // Adding new card face
     let newFace = document.createElement('i');
-    newFace.classList.add('fas',  gameCardsFaces[i]);
-    gameCardElements[i].appendChild(newFace);
+    newFace.classList.add('fa',  gameCardsFaces[i]);
+    gameCard.appendChild(newFace);
   }
 }
 
@@ -59,6 +59,79 @@ function shuffle(array) {
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
- document.addEventListener('click', function tellMe() {
-   displayGameCards();
- });
+ let openCardsList = [];
+ let matchedCardsList = [];
+ let firstCard;
+ let secondCard;
+
+ //fuction addToOpenCardsList
+ function resetOpenCardsList(){
+   openCardsList = [];
+   firstCard = null;
+   secondCard = null;
+ }
+
+ function showSymbol(e){
+   e.target.classList.add('show');
+  }
+
+ function addToOpenCardsList(card){
+    openCardsList.push(card);
+ }
+
+ function openCard(e){
+
+   if (e.target.className === 'card'){
+     let card = e.target;
+
+     if(openCardsList.length === 0){
+       card.classList.add('open');
+       showSymbol(e);
+       addToOpenCardsList(card);
+     }
+     else if (openCardsList.length === 1) {
+       card.classList.add('open');
+       showSymbol(e);
+       addToOpenCardsList(card);
+     } else if (openCardsList.length === 2){
+       let firstCard = openCardsList[0];
+       let secondCard = openCardsList[1];
+
+       firstCard.classList.toggle('show');
+       firstCard.classList.toggle('open');
+       secondCard.classList.toggle('show');
+       secondCard.classList.toggle('open');
+       //clear openCards
+       resetOpenCardsList();
+       card.classList.add('open');
+       showSymbol(e);
+       addToOpenCardsList(card);
+     }
+   }
+ }
+
+ //function checking if the card is opened
+ function isCardOpened(e){
+   if (e.target.className === 'card'){
+     return e.target.classList.contains('open');
+   }
+ }
+
+ //function checking if the card is matched
+ function isCardMatched(e){
+   if (e.target.className === 'card'){
+     return e.target.classList.contains('match');
+   }
+ }
+
+ function cardClicked(e){
+   if (!isCardOpened(e) && !isCardMatched(e)){
+     openCard(e);
+   }
+ }
+
+ const deck = document.querySelector('.deck');
+
+ deck.addEventListener('click', function(event) {
+      cardClicked(event);
+  }, true);
