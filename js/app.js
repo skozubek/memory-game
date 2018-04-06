@@ -59,6 +59,9 @@ function shuffle(array) {
  */
  let openCardsList = [];
  let matchedCounter = 0;
+ let movesCounter = 0;
+
+ // initGameCards();
 
  function gameOver(){
    return matchedCounter === 8;
@@ -68,12 +71,18 @@ function shuffle(array) {
    openCardsList = [];
  }
 
- function toggleSymbol(card){
-   card.classList.toggle('show');
+ function pickCard(card){
+    card.classList.add('show');
+    card.classList.add('open');
+    card.classList.add('animated');
+    card.classList.add('flip');
   }
-
-  function flipCard(card){
-    card.classList.toggle('open');
+  function closeCard(card){
+     card.classList.remove('show');
+     card.classList.remove('open');
+     card.classList.remove('animated');
+     card.classList.remove('flip');
+     card.classList.remove('shake');
    }
 
  function addToOpenCardsList(card){
@@ -87,46 +96,63 @@ function shuffle(array) {
  function setMatchedCards(card1, card2){
   card1.classList.add('match');
   card2.classList.add('match');
-  openCardsList[0].classList.toggle('show');
-  openCardsList[1].classList.toggle('show');
+  card1.classList.remove('flip');
+  card2.classList.remove('flip');
+  card1.classList.add('rubberBand');
+  card2.classList.add('rubberBand');
+ }
+
+ function setNotMatchedCards(card1, card2){
+  card1.classList.remove('flip');
+  card2.classList.remove('flip');
+  card1.classList.add('shake');
+  card2.classList.add('shake');
  }
 
  function openCard(card){
 
-    card.classList.add('open');
+    pickCard(card);
 
     //if no cards opened open card and add to the list of open cards
      if(openCardsList.length === 0){
-       toggleSymbol(card);
        addToOpenCardsList(card);
      }
      //if one card already opened - open card and add to the list of open cards
      //then check if the card match
      else if (openCardsList.length === 1) {
-       toggleSymbol(card);
+
+       movesCounter++;
+       console.log(movesCounter);
        addToOpenCardsList(card);
 
        //if cards match - mark them
        if (cardsMatch(openCardsList[0], openCardsList[1])){
-         setMatchedCards(openCardsList[0], openCardsList[1]);
+
+         setTimeout(function() {
+           setMatchedCards(openCardsList[0], openCardsList[1]);
+         }, 500);
 
          matchedCounter++;
 
          if(gameOver()){
-           setTimeout(function congrats() {
-            alert('You made it!');
-          }, 0);  // ← 0 milliseconds!alert('You made it!');
+           setTimeout(function() {
+            alert('You made it in ' + movesCounter + ' moves !');
+            movesCounter = 0;
+          }, 1500);
          }
+       }
+       else {
+         setTimeout(function() {
+           setNotMatchedCards(openCardsList[0], openCardsList[1]);
+         }, 500);
        }
      }
 
      //if two cards opened and not matched - hide opened cards and reset open cards list
      else if (openCardsList.length === 2) {
        if(!cardsMatch(openCardsList[0], openCardsList[1])){
-         toggleSymbol(openCardsList[0]);
-         toggleSymbol(openCardsList[1]);
-         flipCard(openCardsList[0]);
-         flipCard(openCardsList[1]);
+         closeCard(openCardsList[0]);
+         closeCard(openCardsList[1]);
 
          resetOpenCardsList();
 
@@ -136,7 +162,6 @@ function shuffle(array) {
 
        }
        //open clicked card and add to open cards list
-       toggleSymbol(card);
        addToOpenCardsList(card);
 
      }
