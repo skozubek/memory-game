@@ -63,7 +63,7 @@ let openCardsList = [];
 let matchedCounter = 0;
 let movesCounter = 0;
 
-// initGameCards();
+initGameCards();
 
 function gameOver() {
   return matchedCounter === 8;
@@ -82,22 +82,23 @@ function pickCard(card) {
 
 function closeCards(card1, card2) {
   setTimeout(function() {
-    card1.classList.remove('open');
-    card1.classList.remove('show');
     card1.classList.add('flip');
     card1.classList.remove('shake');
 
-    card2.classList.remove('open');
-    card2.classList.remove('show');
     card2.classList.add('flip');
     card2.classList.remove('shake');
   }, 1200);
+
   setTimeout(function() {
     card1.classList.remove('animated');
     card1.classList.remove('flip');
+    card1.classList.remove('show');
+    card1.classList.remove('open');
 
     card2.classList.remove('animated');
     card2.classList.remove('flip');
+    card2.classList.remove('show');
+    card2.classList.remove('open');
   }, 1500);
 }
 
