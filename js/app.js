@@ -87,7 +87,7 @@ function closeCards(card1, card2) {
 
     card2.classList.add('flip');
     card2.classList.remove('shake');
-  }, 1200);
+  }, 500);
 
   setTimeout(function() {
     card1.classList.remove('animated');
@@ -99,7 +99,7 @@ function closeCards(card1, card2) {
     card2.classList.remove('flip');
     card2.classList.remove('show');
     card2.classList.remove('open');
-  }, 1500);
+  }, 900);
 }
 
 function addToOpenCardsList(card) {

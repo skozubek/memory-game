@@ -111,3 +111,17 @@ h1 {
     float: right;
     cursor: pointer;
 }
+
+.shake {
+  -webkit-animation: shake 0.8s; /* Safari 4+ */
+  -moz-animation:    shake 0.8s; /* Fx 5+ */
+  -o-animation:      shake 0.8s; /* Opera 12+ */
+  animation:         shake 0.8s; /* IE 10+, Fx 29+ */
+}
+
+.flip {
+  -webkit-animation: flip 0.5s; /* Safari 4+ */
+  -moz-animation:    flip 0.5s; /* Fx 5+ */
+  -o-animation:      flip 0.5s; /* Opera 12+ */
+  animation:         flip 0.5s; /* IE 10+, Fx 29+ */
+}
