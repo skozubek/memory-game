@@ -66,9 +66,11 @@ function shuffle(array) {
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
+
 let openCardsList = [];
 let matchedCounter = 0;
 let movesCounter = 0;
+let starRating = 3;
 
 //Moves element
 const movesElement = document.querySelector('.moves');
@@ -76,16 +78,56 @@ const movesElement = document.querySelector('.moves');
 //Timer element
 const timerElement = document.querySelector('.timer');
 
-function initGame(){
+//Displays stars based on current star rating (0-3)
+function resetStarRating() {
+  const stars = document.querySelector('.stars').children;
+  //loop through all the stars and set the icon
+  for (let i = 0; i < stars.length; i++) {
+    let s = stars[i].firstChild;
+    s.classList.remove('fa-star-o');
+    s.classList.add('fa-star');
+  }
+}
+
+//Set and Displays stars based on current star rating (0-3)
+function setStarRating(starsNumber) {
+  const stars = document.querySelector('.stars').children;
+  if (starsNumber === 2) {
+    stars[2].firstChild.classList.remove('fa-star');
+    stars[2].firstChild.classList.add('fa-star-o');
+  } else if (starsNumber === 1) {
+    stars[1].firstChild.classList.remove('fa-star');
+    stars[1].firstChild.classList.add('fa-star-o');
+  } else if (starsNumber === 0) {
+    stars[0].firstChild.classList.remove('fa-star');
+    stars[0].firstChild.classList.add('fa-star-o');
+  }
+}
+
+function calculateStarRating(moves){
+  if(moves < 12){
+    return 3;
+  } else if (moves >= 12 && moves < 18){
+    return 2;
+  } else if (moves >= 18 && moves < 25){
+    return 1;
+  } else {
+    return 0;
+  }
+}
+
+function initGame() {
   movesElement.innerText = movesCounter;
   timerElement.innerText = "00:00";
   initGameCards();
 }
 
-function resetGame(){
+function resetGame() {
   openCardsList = [];
   matchedCounter = 0;
   movesCounter = 0;
+  starRating = 3;
+  resetStarRating();
   timerElement.innerText = "00:00";
 }
 
@@ -168,6 +210,10 @@ function openCard(card) {
 
     movesCounter++;
     movesElement.innerText = movesCounter;
+
+    starRating = calculateStarRating(movesCounter);
+    setStarRating(starRating)
+
     addToOpenCardsList(card);
 
     //if cards match - mark them
@@ -186,9 +232,9 @@ function openCard(card) {
         }
 
       } else {
-          setNotMatchedCards(openCardsList[0], openCardsList[1]);
-          closeCards(openCardsList[0], openCardsList[1]);
-        }
+        setNotMatchedCards(openCardsList[0], openCardsList[1]);
+        closeCards(openCardsList[0], openCardsList[1]);
+      }
 
       resetOpenCardsList();
       console.log(openCardsList.length);
