@@ -63,7 +63,19 @@ let openCardsList = [];
 let matchedCounter = 0;
 let movesCounter = 0;
 
-initGameCards();
+//Moves element
+const movesElement = document.getElementsByClassName('moves')[0];
+
+//Timer element
+const timerElement = document.getElementsByClassName('timer')[0];
+
+function initGame(){
+  movesElement.innerText = movesCounter;
+  timerElement.innerText = "00:00";
+  initGameCards();
+}
+
+initGame();
 
 function gameOver() {
   return matchedCounter === 8;
@@ -143,7 +155,7 @@ function openCard(card) {
   else if (openCardsList.length === 1) {
 
     movesCounter++;
-    console.log("moves: " + movesCounter);
+    movesElement.innerText = movesCounter;
     addToOpenCardsList(card);
 
     //if cards match - mark them
@@ -157,7 +169,7 @@ function openCard(card) {
         if (gameOver()) {
           setTimeout(function() {
             alert('You made it in ' + movesCounter + ' moves !');
-            movesCounter = 0;
+            //movesCounter = 0;
           }, 500);
         }
 
