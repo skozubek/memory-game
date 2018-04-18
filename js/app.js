@@ -30,6 +30,13 @@ function initGameCards() {
     let newFace = document.createElement('i');
     newFace.classList.add('fa', gameCardsFaces[i]);
     gameCard.appendChild(newFace);
+
+    //remove classes  (for reseting game)
+    gameCard.classList.remove('animated');
+    gameCard.classList.remove('match');
+    gameCard.classList.remove('show');
+    gameCard.classList.remove('open');
+    gameCard.classList.remove('rubberBand');
   }
 }
 
@@ -64,10 +71,10 @@ let matchedCounter = 0;
 let movesCounter = 0;
 
 //Moves element
-const movesElement = document.getElementsByClassName('moves')[0];
+const movesElement = document.querySelector('.moves');
 
 //Timer element
-const timerElement = document.getElementsByClassName('timer')[0];
+const timerElement = document.querySelector('.timer');
 
 function initGame(){
   movesElement.innerText = movesCounter;
@@ -75,7 +82,12 @@ function initGame(){
   initGameCards();
 }
 
-initGame();
+function resetGame(){
+  openCardsList = [];
+  matchedCounter = 0;
+  movesCounter = 0;
+  timerElement.innerText = "00:00";
+}
 
 function gameOver() {
   return matchedCounter === 8;
@@ -214,3 +226,12 @@ const deck = document.querySelector('.deck');
 deck.addEventListener('click', function(event) {
   cardClicked(event);
 }, true);
+
+//add event listener to the cards deck
+const reset = document.querySelector('.restart');
+reset.addEventListener('click', function() {
+  resetGame();
+  initGame();
+});
+
+initGame();
