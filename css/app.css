@@ -112,6 +112,15 @@ h1 {
     cursor: pointer;
 }
 
+.score-panel .timer {
+    float: right;
+    padding-right: 3em;
+}
+
+/*
+ * Animations times
+ */
+
 .shake {
   -webkit-animation: shake 0.8s; /* Safari 4+ */
   -moz-animation:    shake 0.8s; /* Fx 5+ */
