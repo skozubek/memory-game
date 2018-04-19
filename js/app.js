@@ -123,12 +123,12 @@ function setStarRating(starsNumber) {
 }
 
 //Calculates star rating based on the number of moves
-function calculateStarRating(moves){
-  if(moves < threeStars){
+function calculateStarRating(moves) {
+  if (moves < threeStars) {
     return 3;
-  } else if (moves >= threeStars && moves < twoStars){
+  } else if (moves >= threeStars && moves < twoStars) {
     return 2;
-  } else if (moves >= twoStars && moves < oneStar){
+  } else if (moves >= twoStars && moves < oneStar) {
     return 1;
   } else {
     return 0;
@@ -227,7 +227,7 @@ function setNotMatchedCards(card1, card2) {
 function openCard(card) {
 
   //start timer on the pick of the very first card
-  if(movesCounter === 0 && openCardsList.length === 0){
+  if (movesCounter === 0 && openCardsList.length === 0) {
     startTimer();
   }
 
@@ -269,8 +269,8 @@ function openCard(card) {
         if (gameOver()) {
           stopTimer();
           setTimeout(function() {
-          modalText.innerText =  'You made it in ' + movesCounter + ' moves ! It took ' + timer + ' of time! Your Star Rating is: ' + starRating;
-          modal.classList.toggle("opened");
+            modalText.innerText = 'You made it in ' + movesCounter + ' moves ! It took ' + timer + ' of time! Your Star Rating is: ' + starRating;
+            modal.classList.toggle("opened");
           }, 500);
         }
 
@@ -307,8 +307,8 @@ function cardClicked(e) {
 }
 
 //timer based on W3C example at https://www.w3schools.com/howto/howto_js_countdown.asp
-function startTimer(){
-    // Get todays date and time
+function startTimer() {
+  // Get todays date and time
   let now = new Date().getTime();
   // Update the count up every 1 second
   interval = setInterval(function() {
@@ -321,12 +321,12 @@ function startTimer(){
 
     // Display the result in the element with id="timer"
     timer = minutes + "m " + seconds + "s ";
-    timerElement.innerText =  timer;
+    timerElement.innerText = timer;
   }, 1000);
 }
 
 function stopTimer() {
-    clearInterval(interval);
+  clearInterval(interval);
 }
 
 //add event listener to the cards deck
@@ -339,7 +339,7 @@ reset.addEventListener('click', function() {
   if (confirm('Are you sure you want to reset current game?')) {
     resetGame();
     initGame();
-    } else {
+  } else {
     // Do nothing!
   }
 });
@@ -359,7 +359,7 @@ play.addEventListener("click", function() {
 // When the user clicks anywhere outside of the modal, close it
 window.addEventListener("click", function(event) {
   if (event.target === modal) {
-      modal.classList.toggle("opened");
+    modal.classList.toggle("opened");
   }
 });
 

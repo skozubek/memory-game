@@ -1,36 +1,34 @@
 html {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
-*,
-*::before,
-*::after {
-    box-sizing: inherit;
+*, *::before, *::after {
+  box-sizing: inherit;
 }
 
-html,
-body {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
+html, body {
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-    background: #ffffff url('../img/geometry2.png'); /* Background pattern from Subtle Patterns */
-    font-family: 'Coda', cursive;
+  background: #ffffff url('../img/geometry2.png');
+  /* Background pattern from Subtle Patterns */
+  font-family: 'Coda', cursive;
 }
 
 .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 h1 {
-    font-family: 'Open Sans', sans-serif;
-    font-weight: 300;
+  font-family: 'Open Sans', sans-serif;
+  font-weight: 300;
 }
 
 /*
@@ -38,83 +36,81 @@ h1 {
  */
 
 .deck {
-    width: 660px;
-    min-height: 680px;
-    background: linear-gradient(160deg, #02ccba 0%, #aa7ecd 100%);
-    padding: 32px;
-    border-radius: 10px;
-    box-shadow: 12px 15px 20px 0 rgba(46, 61, 73, 0.5);
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    margin: 0 0 3em;
-
+  max-width: 660px;
+  min-height: 680px;
+  background: linear-gradient(160deg, #02ccba 0%, #aa7ecd 100%);
+  padding: 32px;
+  border-radius: 10px;
+  box-shadow: 12px 15px 20px 0 rgba(46, 61, 73, 0.5);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 0 3em;
 }
 
 .deck .card {
-    height: 125px;
-    width: 125px;
-    background: #2e3d49;
-    font-size: 0;
-    color: #ffffff;
-    border-radius: 8px;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 5px 2px 20px 0 rgba(46, 61, 73, 0.5);
+  height: 125px;
+  width: 125px;
+  background: #2e3d49;
+  font-size: 0;
+  color: #ffffff;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 5px 2px 20px 0 rgba(46, 61, 73, 0.5);
 }
 
 .deck .card.open {
-    /* transform: rotateY(0deg); */
-    background: #02b3e4;
-    cursor: default;
+  /* transform: rotateY(0deg); */
+  background: #02b3e4;
+  cursor: default;
 }
 
 .deck .card.show {
-    font-size: 33px;
-    transition: 0.6s;
-	  transform-style: preserve-3d;
+  font-size: 33px;
+  transition: 0.6s;
+  transform-style: preserve-3d;
 }
 
 .deck .card.match {
-    cursor: default;
-    background: #02ccba;
-    font-size: 33px;
+  cursor: default;
+  background: #02ccba;
+  font-size: 33px;
 }
-
 
 /*
  * Styles for the Score Panel
  */
 
 .score-panel {
-    text-align: left;
-    width: 345px;
-    margin-bottom: 10px;
+  text-align: left;
+  width: 345px;
+  margin-bottom: 10px;
 }
 
 .score-panel .stars {
-    margin: 0;
-    padding: 0;
-    display: inline-block;
-    margin: 0 5px 0 0;
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+  margin: 0 5px 0 0;
 }
 
 .score-panel .stars li {
-    list-style: none;
-    display: inline-block;
+  list-style: none;
+  display: inline-block;
 }
 
 .score-panel .restart {
-    float: right;
-    cursor: pointer;
+  float: right;
+  cursor: pointer;
 }
 
 .score-panel #timer {
-    float: right;
-    padding-right: 3em;
+  float: right;
+  padding-right: 3em;
 }
 
 #fireworks {
@@ -126,35 +122,53 @@ h1 {
  */
 
 .shake {
-  -webkit-animation: shake 0.8s; /* Safari 4+ */
-  -moz-animation:    shake 0.8s; /* Fx 5+ */
-  -o-animation:      shake 0.8s; /* Opera 12+ */
-  animation:         shake 0.8s; /* IE 10+, Fx 29+ */
+  -webkit-animation: shake 0.8s;
+  /* Safari 4+ */
+  -moz-animation: shake 0.8s;
+  /* Fx 5+ */
+  -o-animation: shake 0.8s;
+  /* Opera 12+ */
+  animation: shake 0.8s;
+  /* IE 10+, Fx 29+ */
 }
 
 .flip {
-  -webkit-animation: flip 0.5s; /* Safari 4+ */
-  -moz-animation:    flip 0.5s; /* Fx 5+ */
-  -o-animation:      flip 0.5s; /* Opera 12+ */
-  animation:         flip 0.5s; /* IE 10+, Fx 29+ */
+  -webkit-animation: flip 0.5s;
+  /* Safari 4+ */
+  -moz-animation: flip 0.5s;
+  /* Fx 5+ */
+  -o-animation: flip 0.5s;
+  /* Opera 12+ */
+  animation: flip 0.5s;
+  /* IE 10+, Fx 29+ */
 }
 
 /* Modal based on W3S example at
 https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_modal */
 
 /*The Modal (background) */
+
 .modal {
-  display: none; /* Hidden by default */
-  position: fixed; /* Stay in place */
-  z-index: 1; /* Sit on top */
-  padding-top: 100px; /* Location of the box */
+  display: none;
+  /* Hidden by default */
+  position: fixed;
+  /* Stay in place */
+  z-index: 1;
+  /* Sit on top */
+  padding-top: 100px;
+  /* Location of the box */
   left: 0;
   top: 0;
-  width: 100%; /* Full width */
-  height: 100%; /* Full height */
-  overflow: auto; /* Enable scroll if needed */
-  background-color: rgb(0,0,0); /* Fallback color */
-  background-color: rgba(0,0,0,0.4); /* Black w/ opacity */
+  width: 100%;
+  /* Full width */
+  height: 100%;
+  /* Full height */
+  overflow: auto;
+  /* Enable scroll if needed */
+  background-color: rgb(0, 0, 0);
+  /* Fallback color */
+  background-color: rgba(0, 0, 0, 0.4);
+  /* Black w/ opacity */
 }
 
 .modal.opened {
@@ -162,39 +176,87 @@ https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_modal */
 }
 
 /* Modal Content */
+
 .modal-content {
-    font-family: 'Open Sans', sans-serif;
-    text-align: center;
-    background-color: #fefefe;
-    margin: auto;
-    padding: 20px;
-    border: 1px solid #888;
-    width: 70%;
+  font-family: 'Open Sans', sans-serif;
+  text-align: center;
+  background-color: #fefefe;
+  margin: auto;
+  padding: 20px;
+  border: 1px solid #888;
+  width: 70%;
 }
 
 /* The Close Button */
+
 .close {
-    color: #aaaaaa;
-    float: right;
-    font-size: 28px;
-    font-weight: bold;
+  color: #aaaaaa;
+  float: right;
+  font-size: 28px;
+  font-weight: bold;
 }
 
-.close:hover,
-.close:focus {
-    color: #000;
-    text-decoration: none;
-    cursor: pointer;
+.close:hover, .close:focus {
+  color: #000;
+  text-decoration: none;
+  cursor: pointer;
 }
 
 .button {
-    background-color: #4CAF50; /* Green */
-    border: none;
-    color: white;
-    padding: 15px 32px;
-    text-align: center;
-    text-decoration: none;
-    display: inline-block;
-    font-size: 16px;
-    border-radius: 6px;
+  background-color: #4CAF50;
+  /* Green */
+  border: none;
+  color: white;
+  padding: 15px 32px;
+  text-align: center;
+  text-decoration: none;
+  display: inline-block;
+  font-size: 16px;
+  border-radius: 6px;
+}
+
+/*Responsive stuff for smaller screens*/
+
+@media screen and (max-width: 615px) {
+  .deck .card {
+    height: 120px;
+    width: 120px;
+  }
+}
+
+@media screen and (max-width: 550px) {
+  .deck .card {
+    height: 100px;
+    width: 100px;
+  }
+}
+
+@media screen and (max-width: 467px) {
+  .deck .card {
+    height: 85px;
+    width: 85px;
+  }
+  .deck {
+    min-height: 550px;
+  }
+}
+
+@media screen and (max-width: 407px) {
+  .deck .card {
+    height: 75px;
+    width: 75px;
+  }
+  .deck {
+    min-height: 500px;
+  }
+}
+
+@media screen and (max-width: 370px) {
+  .deck .card {
+    height: 65px;
+    width: 65px;
+  }
+  .deck {
+    min-height: 450px;
+  }
 }
