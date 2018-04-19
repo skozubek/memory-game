@@ -70,6 +70,8 @@ let openCardsList = [];
 let matchedCounter = 0;
 let movesCounter = 0;
 let starRating = 3;
+let interval;
+let timer = "0m 0s";
 
 //Get the Moves element
 const movesElement = document.querySelector('.moves');
@@ -77,8 +79,14 @@ const movesElement = document.querySelector('.moves');
 const timerElement = document.getElementById('timer');
 // Get the modal
 const modal = document.getElementById('myModal');
+// Get the modal text
+const modalText = document.getElementById('modal-text');
 // Get the <span> element that closes the modal
 const close = document.getElementsByClassName("close")[0];
+// Get the deck element
+const deck = document.querySelector('.deck');
+// Get the reset button element
+const reset = document.querySelector('.restart');
 
 
 //Displays stars based on current star rating (0-3)
@@ -123,7 +131,7 @@ function calculateStarRating(moves){
 //Initiate the game
 function initGame() {
   movesElement.innerText = movesCounter;
-  timerElement.innerText = "00:00";
+  timerElement.innerText = timer;
   initGameCards();
 }
 
@@ -135,7 +143,8 @@ function resetGame() {
   movesCounter = 0;
   starRating = 3;
   resetStarRating();
-  timerElement.innerText = "00:00";
+  timer = "0m 0s";
+  timerElement.innerText = timer;
 }
 
 //Check if all the cards are matched
@@ -253,8 +262,8 @@ function openCard(card) {
         if (gameOver()) {
           stopTimer();
           setTimeout(function() {
-            alert('You made it in ' + movesCounter + ' moves ! It took ' + document.getElementById("timer").innerText + ' of time! Your Star Rating is: ' + starRating);
-            modal.style.display = "block";
+          modalText.innerText =  'You made it in ' + movesCounter + ' moves ! It took ' + timer + ' of time! Your Star Rating is: ' + starRating;
+          modal.style.display = "block";
           }, 500);
         }
 
@@ -290,7 +299,6 @@ function cardClicked(e) {
   }
 }
 
-let interval;
 //timer based on W3C example at https://www.w3schools.com/howto/howto_js_countdown.asp
 function startTimer(){
     // Get todays date and time
@@ -305,7 +313,8 @@ function startTimer(){
     let seconds = Math.floor((newNow % (1000 * 60)) / 1000);
 
     // Display the result in the element with id="timer"
-    document.getElementById("timer").innerHTML =  minutes + "m " + seconds + "s ";
+    timer = minutes + "m " + seconds + "s ";
+    timerElement.innerText =  timer;
   }, 1000);
 }
 
@@ -314,18 +323,16 @@ function stopTimer() {
 }
 
 //add event listener to the cards deck
-const deck = document.querySelector('.deck');
-
 deck.addEventListener('click', function(event) {
   cardClicked(event);
 }, true);
 
-//add event listener to the cards deck
-const reset = document.querySelector('.restart');
+//add event listener to the reset button
 reset.addEventListener('click', function() {
   resetGame();
   initGame();
 });
+
 // When the user clicks on <close> (x), close the modal
 close.onclick = function() {
     modal.style.display = "none";
