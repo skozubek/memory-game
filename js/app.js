@@ -92,11 +92,12 @@ const close = document.getElementsByClassName("close")[0];
 const deck = document.querySelector('.deck');
 // Get the reset button element
 const reset = document.querySelector('.restart');
+// Get list of stars element
+const stars = document.querySelector('.stars').children;
 
 
 //Displays stars based on current star rating (0-3)
 function resetStarRating() {
-  const stars = document.querySelector('.stars').children;
   //loop through all the stars and set the icon
   for (let i = 0; i < stars.length; i++) {
     let s = stars[i].firstChild;
@@ -107,7 +108,6 @@ function resetStarRating() {
 
 //Set and Displays stars based on current star rating (0-3)
 function setStarRating(starsNumber) {
-  const stars = document.querySelector('.stars').children;
   if (starsNumber === 2) {
     stars[2].firstChild.classList.remove('fa-star');
     stars[2].firstChild.classList.add('fa-star-o');
@@ -268,7 +268,7 @@ function openCard(card) {
           stopTimer();
           setTimeout(function() {
           modalText.innerText =  'You made it in ' + movesCounter + ' moves ! It took ' + timer + ' of time! Your Star Rating is: ' + starRating;
-          modal.style.display = "block";
+          modal.classList.toggle("opened");
           }, 500);
         }
 
@@ -336,18 +336,19 @@ deck.addEventListener('click', function(event) {
 reset.addEventListener('click', function() {
   resetGame();
   initGame();
+  modal.classList.toggle("opened");
 });
 
 // When the user clicks on <close> (x), close the modal
-close.onclick = function() {
-    modal.style.display = "none";
-}
+close.addEventListener("click", function() {
+  modal.classList.toggle("opened");
+});
 
 // When the user clicks anywhere outside of the modal, close it
-window.onclick = function(event) {
-    if (event.target == modal) {
-        modal.style.display = "none";
-    }
-}
+window.addEventListener("click", function(event) {
+  if (event.target === modal && modal.classList.contains('opened')) {
+      modal.classList.toggle("opened");
+  }
+});
 
 initGame();
