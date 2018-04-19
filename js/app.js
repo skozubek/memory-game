@@ -73,6 +73,11 @@ let starRating = 3;
 let interval;
 let timer = "0m 0s";
 
+//Star rating levels
+const threeStars = 15;
+const twoStars = 20;
+const oneStar = 25;
+
 //Get the Moves element
 const movesElement = document.querySelector('.moves');
 //Get the Timer element
@@ -117,11 +122,11 @@ function setStarRating(starsNumber) {
 
 //Calculates star rating based on the number of moves
 function calculateStarRating(moves){
-  if(moves < 12){
+  if(moves < threeStars){
     return 3;
-  } else if (moves >= 12 && moves < 18){
+  } else if (moves >= threeStars && moves < twoStars){
     return 2;
-  } else if (moves >= 18 && moves < 25){
+  } else if (moves >= twoStars && moves < oneStar){
     return 1;
   } else {
     return 0;
