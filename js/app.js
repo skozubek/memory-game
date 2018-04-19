@@ -52,7 +52,6 @@ function shuffle(array) {
     array[currentIndex] = array[randomIndex];
     array[randomIndex] = temporaryValue;
   }
-
   return array;
 }
 
@@ -76,7 +75,7 @@ let starRating = 3;
 const movesElement = document.querySelector('.moves');
 
 //Timer element
-const timerElement = document.querySelector('.timer');
+const timerElement = document.getElementById('timer');
 
 //Displays stars based on current star rating (0-3)
 function resetStarRating() {
@@ -123,6 +122,7 @@ function initGame() {
 }
 
 function resetGame() {
+  stopTimer();
   openCardsList = [];
   matchedCounter = 0;
   movesCounter = 0;
@@ -194,6 +194,12 @@ function setNotMatchedCards(card1, card2) {
 
 function openCard(card) {
 
+  //start timer on the pick of the very first card
+  if(movesCounter === 0 && openCardsList.length === 0){
+    startTimer();
+  }
+
+  // if two card are already opened do not pick any more
   if (openCardsList.length >= 2) {
     return;
   }
@@ -208,6 +214,7 @@ function openCard(card) {
   //then check if the card match
   else if (openCardsList.length === 1) {
 
+    //opening two cards caounts as a one move
     movesCounter++;
     movesElement.innerText = movesCounter;
 
@@ -225,8 +232,9 @@ function openCard(card) {
         matchedCounter++;
 
         if (gameOver()) {
+          stopTimer();
           setTimeout(function() {
-            alert('You made it in ' + movesCounter + ' moves !');
+            alert('You made it in ' + movesCounter + ' moves ! It took ' + document.getElementById("timer").innerText + ' of time! Your Star Rating is: ' + starRating);
             //movesCounter = 0;
           }, 500);
         }
@@ -264,6 +272,29 @@ function cardClicked(e) {
       openCard(e.target);
     }
   }
+}
+
+let interval;
+//timer based on W3C example at https://www.w3schools.com/howto/howto_js_countdown.asp
+function startTimer(){
+    // Get todays date and time
+  let now = new Date().getTime();
+  // Update the count up every 1 second
+  interval = setInterval(function() {
+    // Find the distance between now an the count down date
+    let newNow = new Date().getTime() - now;
+
+    // Time calculations for days, hours, minutes and seconds
+    let minutes = Math.floor((newNow % (1000 * 60 * 60)) / (1000 * 60));
+    let seconds = Math.floor((newNow % (1000 * 60)) / 1000);
+
+    // Display the result in the element with id="timer"
+    document.getElementById("timer").innerHTML =  minutes + "m " + seconds + "s ";
+  }, 1000);
+}
+
+function stopTimer() {
+    clearInterval(interval);
 }
 
 //add event listener to the cards deck
