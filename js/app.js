@@ -94,6 +94,8 @@ const deck = document.querySelector('.deck');
 const reset = document.querySelector('.restart');
 // Get list of stars element
 const stars = document.querySelector('.stars').children;
+// Get the play again button element
+const play = document.querySelector('.button');
 
 
 //Displays stars based on current star rating (0-3)
@@ -336,12 +338,18 @@ deck.addEventListener('click', function(event) {
 reset.addEventListener('click', function() {
   resetGame();
   initGame();
-  modal.classList.toggle("opened");
 });
 
 // When the user clicks on <close> (x), close the modal
 close.addEventListener("click", function() {
   modal.classList.toggle("opened");
+});
+
+// When the user clicks on <close> (x), close the modal
+play.addEventListener("click", function() {
+  modal.classList.toggle("opened");
+  resetGame();
+  initGame();
 });
 
 // When the user clicks anywhere outside of the modal, close it
