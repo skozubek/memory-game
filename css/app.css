@@ -203,8 +203,7 @@ https://www.w3schools.com/howto/tryit.asp?filename=tryhow_css_modal */
 }
 
 .button {
-  background-color: #4CAF50;
-  /* Green */
+  background-color: #4CAF50; /* Green */
   border: none;
   color: white;
   padding: 15px 32px;
