@@ -336,8 +336,12 @@ deck.addEventListener('click', function(event) {
 
 //add event listener to the reset button
 reset.addEventListener('click', function() {
-  resetGame();
-  initGame();
+  if (confirm('Are you sure you want to reset current game?')) {
+    resetGame();
+    initGame();
+    } else {
+    // Do nothing!
+  }
 });
 
 // When the user clicks on <close> (x), close the modal
