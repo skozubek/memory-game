@@ -71,11 +71,15 @@ let matchedCounter = 0;
 let movesCounter = 0;
 let starRating = 3;
 
-//Moves element
+//Get the Moves element
 const movesElement = document.querySelector('.moves');
-
-//Timer element
+//Get the Timer element
 const timerElement = document.getElementById('timer');
+// Get the modal
+const modal = document.getElementById('myModal');
+// Get the <span> element that closes the modal
+const close = document.getElementsByClassName("close")[0];
+
 
 //Displays stars based on current star rating (0-3)
 function resetStarRating() {
@@ -103,6 +107,7 @@ function setStarRating(starsNumber) {
   }
 }
 
+//Calculates star rating based on the number of moves
 function calculateStarRating(moves){
   if(moves < 12){
     return 3;
@@ -115,12 +120,14 @@ function calculateStarRating(moves){
   }
 }
 
+//Initiate the game
 function initGame() {
   movesElement.innerText = movesCounter;
   timerElement.innerText = "00:00";
   initGameCards();
 }
 
+//Reset the counters, rating & time
 function resetGame() {
   stopTimer();
   openCardsList = [];
@@ -131,14 +138,17 @@ function resetGame() {
   timerElement.innerText = "00:00";
 }
 
+//Check if all the cards are matched
 function gameOver() {
   return matchedCounter === 8;
 }
 
+//Clear open cards list list
 function resetOpenCardsList() {
   openCardsList = [];
 }
 
+//Animate opening card
 function pickCard(card) {
   card.classList.add('show');
   card.classList.add('open');
@@ -146,6 +156,7 @@ function pickCard(card) {
   card.classList.add('flip');
 }
 
+//Animate closing cards
 function closeCards(card1, card2) {
   setTimeout(function() {
     card1.classList.add('flip');
@@ -168,14 +179,17 @@ function closeCards(card1, card2) {
   }, 900);
 }
 
+//Add to open cards list
 function addToOpenCardsList(card) {
   openCardsList.push(card);
 }
 
+//Check if two open cards match (return 'true')
 function cardsMatch(card1, card2) {
   return card1.querySelector('i').className === card2.querySelector('i').className;
 }
 
+//Animate matched cards
 function setMatchedCards(card1, card2) {
   card1.classList.add('match');
   card2.classList.add('match');
@@ -185,6 +199,7 @@ function setMatchedCards(card1, card2) {
   card2.classList.add('rubberBand');
 }
 
+//Animate cards not matched
 function setNotMatchedCards(card1, card2) {
   card1.classList.remove('flip');
   card2.classList.remove('flip');
@@ -192,6 +207,7 @@ function setNotMatchedCards(card1, card2) {
   card2.classList.add('shake');
 }
 
+//Main logic, opening cards
 function openCard(card) {
 
   //start timer on the pick of the very first card
@@ -204,9 +220,10 @@ function openCard(card) {
     return;
   }
 
+  //pick the card and proceed to check the current conditions
   pickCard(card);
 
-  //if no cards opened open card and add to the list of open cards
+  //if no cards opened alredy, open card and add to the list of open cards
   if (openCardsList.length === 0) {
     addToOpenCardsList(card);
   }
@@ -216,9 +233,11 @@ function openCard(card) {
 
     //opening two cards caounts as a one move
     movesCounter++;
+    //update moves counter on page
     movesElement.innerText = movesCounter;
-
+    //check star rating
     starRating = calculateStarRating(movesCounter);
+    //update star rating on page (display correct number of stars)
     setStarRating(starRating)
 
     addToOpenCardsList(card);
@@ -230,12 +249,12 @@ function openCard(card) {
         setMatchedCards(openCardsList[0], openCardsList[1]);
 
         matchedCounter++;
-
+        //Check if it was last pair of cards (game over)
         if (gameOver()) {
           stopTimer();
           setTimeout(function() {
             alert('You made it in ' + movesCounter + ' moves ! It took ' + document.getElementById("timer").innerText + ' of time! Your Star Rating is: ' + starRating);
-            //movesCounter = 0;
+            modal.style.display = "block";
           }, 500);
         }
 
@@ -243,10 +262,7 @@ function openCard(card) {
         setNotMatchedCards(openCardsList[0], openCardsList[1]);
         closeCards(openCardsList[0], openCardsList[1]);
       }
-
       resetOpenCardsList();
-      console.log(openCardsList.length);
-
     }, 800);
   }
 }
@@ -310,5 +326,16 @@ reset.addEventListener('click', function() {
   resetGame();
   initGame();
 });
+// When the user clicks on <close> (x), close the modal
+close.onclick = function() {
+    modal.style.display = "none";
+}
+
+// When the user clicks anywhere outside of the modal, close it
+window.onclick = function(event) {
+    if (event.target == modal) {
+        modal.style.display = "none";
+    }
+}
 
 initGame();
