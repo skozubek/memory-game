@@ -33,7 +33,10 @@ You start a game with the star rating of three. Revealing two cards counts for o
 The DOM is manipulated by the Vanilla JS in app.js file. openCard(card) function is handling the main logic of the game. Other functions are responsible for creating deck fo cards, shuffling cards, initiate the game, resetting the game, starting and stopping the timer, applying CSS classes responsible for animations, displaying a modal window on the game over event.
 
 ### CSS
-All the elements are styled by the stylesheet in app.css file. There are also additional styles to make the game responsive and good looking on smaller screens.
+All the elements are styled by the stylesheet in app.css file. There are also additional styles to make the game responsive and good looking on smaller screens. Additional linked styles:
+
+* animate.css (https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.2/animate.min.css) is used for cards animations,
+* font-awesome.css (https://maxcdn.bootstrapcdn.com/font-awesome/4.6.1/css/font-awesome.min.css) is used for cards symbols, stars for star rating and reset button.
 
 ## Contributing
 
