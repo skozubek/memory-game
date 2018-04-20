@@ -37,6 +37,7 @@ function initGameCards() {
     gameCard.classList.remove('show');
     gameCard.classList.remove('open');
     gameCard.classList.remove('rubberBand');
+    gameCard.classList.remove('flip');
   }
 }
 
